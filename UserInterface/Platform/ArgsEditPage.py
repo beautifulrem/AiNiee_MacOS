@@ -68,10 +68,6 @@ class ArgsEditPage(MessageBoxBase, ConfigMixin, LogMixin, Base):
         if "rpm_limit" in settings:
             self.add_widget_rpm(self.vbox, config)
 
-        # tpm_limit
-        if "tpm_limit" in settings:
-            self.add_widget_tpm(self.vbox, config)
-
         # temperature
         if "temperature" in settings:
             self.add_widget_temperature(self.vbox, config, preset)
@@ -301,27 +297,7 @@ class ArgsEditPage(MessageBoxBase, ConfigMixin, LogMixin, Base):
         parent.addWidget(
             SpinCard(
                 self.tra("每分钟请求数"),
-                self.tra("限制每个密钥每分钟最多发送的请求数量，0 表示不限制"),
-                init = init,
-                value_changed = value_changed,
-            )
-        )
-
-    # 每分钟 Token 数
-    def add_widget_tpm(self, parent, config):
-        def init(widget):
-            widget.set_range(0, 9999999)
-            widget.set_value(config.get("platforms").get(self.key).get("tpm_limit", 4096000))
-
-        def value_changed(widget, value: str):
-            config = self.load_config()
-            config["platforms"][self.key]["tpm_limit"] = value
-            self.save_config(config)
-
-        parent.addWidget(
-            SpinCard(
-                self.tra("每分钟 Token 数"),
-                self.tra("限制每个密钥每分钟最多使用的 Token 数量，0 表示不限制"),
+                self.tra("限制该接口每分钟最多发送的请求数量（RPM）"),
                 init = init,
                 value_changed = value_changed,
             )

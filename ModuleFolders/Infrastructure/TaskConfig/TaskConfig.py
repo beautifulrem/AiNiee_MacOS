@@ -289,11 +289,9 @@ class TaskConfig(ConfigMixin, LogMixin, Base):
 
         # 获取接口限额
         self.rpm_limit = platform_data.get("rpm_limit", 4096)
-        self.tpm_limit = platform_data.get("tpm_limit", 10000000)
 
-        # 根据密钥数量给 RPM 和 TPM 限额翻倍
+        # 根据密钥数量给 RPM 限额翻倍
         self.rpm_limit = self.rpm_limit * len(self.apikey_list)
-        self.tpm_limit = self.tpm_limit * len(self.apikey_list)
 
         # 如果开启自动设置输出文件夹功能，设置为输入文件夹的平级目录
         if self.auto_set_output_path is True:
