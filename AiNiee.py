@@ -201,7 +201,7 @@ if __name__ == "__main__":
     _log.info("Starting AiNiee Application...")
 
     # 启动页面
-    logo_path = str(resource_path("Logo", "Logo.png"))
+    logo_path = str(resource_path("Logo", "logo.png"))
     icon = QIcon(logo_path)  # 使用QIcon加载logo
     pixmap = icon.pixmap(400, 200)  # 从QIcon获取指定大小的QPixmap
     # 跟随缩放比例
