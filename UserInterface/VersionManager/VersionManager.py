@@ -573,6 +573,11 @@ class VersionManager(ConfigMixin, LogMixin, ToastMixin, Base):
 
     def _start_update(self):
         """开始更新进程"""
+        # Linux 等平台没有对应的发布包，也无法运行 updater.exe，改为打开发布页手动更新
+        if not (is_windows() or is_macos()):
+            if self.latest_version_url:
+                QDesktopServices.openUrl(QUrl(self.latest_version_url))
+            return
         self._update_cancelled = False
         self.progress_bar.setVisible(True)
         self.percentage_label.setVisible(True)
