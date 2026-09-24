@@ -274,7 +274,7 @@ class VersionManager(ConfigMixin, LogMixin, ToastMixin, Base):
                 url_matches = bool(self.latest_download_url) and download_info.get("url") == self.latest_download_url
                 cached_size = download_info.get("total_size", 0)
                 size_ok = cached_size > 0 and os.path.getsize(local_filename) == cached_size
-                if is_completed and is_newer and url_matches and size_ok:
+                if is_completed and is_newer and url_matches and size_ok and (is_windows() or is_macos()):
                     # 已有下载完成的更新文件，直接提示安装
                     msg_box = MessageBox(
                         self.tra("安装更新"),
